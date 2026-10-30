@@ -11,3 +11,9 @@ Untested prototype. Simulated data, one fake keeper, no real chain. Do not use i
 - The crash scenario is a lot more fun to watch than it is to be a vault owner in.
 
 Built with caution and an unreasonable fondness for ratios. Mind the 150% line.
+
+**StableForge
+
+Mini MakerDAOtyle over-collateralized stableco simulation.
+
+** DisclaimerThis is an educationalVP using simulated data only. ** is not audited, testedor production use, or intendedor financial decision-making.
