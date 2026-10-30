@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StableForge</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <h1>StableForge</h1>
+    <p id="clock" class="muted"></p>
+    <p id="who" hidden><span id="whoName"></span> <button id="logout" type="button" class="ghost">Log out</button></p>
+  </header>
+  <p id="msg" role="status" aria-live="polite"></p>
+
+  <main id="main">
+    <section id="auth" aria-labelledby="authH">
+      <h2 id="authH">Log in</h2>
+      <form id="authForm">
+        <label>Username <input id="user" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_.\-]{3,32}"></label>
+        <label>Password <input id="pass" type="password" autocomplete="current-password" required minlength="10" maxlength="128"></label>
+        <div class="row">
+          <button type="submit" id="loginBtn">Log in</button>
+          <button type="button" id="registerBtn" class="ghost">Register</button>
+        </div>
+      </form>
+      <p class="muted">Local demo only. After <code>python sim.py</code> try demo / demo-pass-1234.</p>
+    </section>
+
+    <div id="app" hidden>
+      <section aria-labelledby="mktH">
+        <h2 id="mktH">Market</h2>
+        <p>COL market <strong id="pMarket"></strong> &middot; protocol oracle <strong id="pOracle"></strong></p>
+        <svg id="spark" viewBox="0 0 300 70" role="img" aria-label="Price history, market and oracle"></svg>
+        <fieldset>
+          <legend>Price scenario</legend>
+          <div id="scenarios" class="row"></div>
+        </fieldset>
+        <p id="blurb" class="muted"></p>
+        <div class="row">
+          <button type="button" data-hours="1">+1 hour</button>
+          <button type="button" data-hours="6">+6 hours</button>
+          <button type="button" data-hours="24">+24 hours</button>
+        </div>
+        <label class="slide">What-if price shock: <strong id="shockVal">0%</strong>
+          <input id="shock" type="range" min="-60" max="40" step="1" value="0">
+        </label>
+        <p class="muted">Slide to preview every vault's ratio at a different oracle price. Nothing changes until you advance time.</p>
+      </section>
+
+      <section aria-labelledby="walH">
+        <h2 id="walH">Wallet &amp; peg module</h2>
+        <dl id="wallet"></dl>
+        <form id="psmForm" class="row">
+          <label>Amount <input id="psmAmt" inputmode="decimal" placeholder="1000" required></label>
+          <button type="submit" data-side="buy">USDC &rarr; FORGE</button>
+          <button type="submit" data-side="sell" class="ghost">FORGE &rarr; USDC</button>
+        </form>
+        <dl id="system"></dl>
+      </section>
+
+      <section aria-labelledby="vaH" class="wide">
+        <div class="row between"><h2 id="vaH">Vaults</h2><button id="openVault" type="button">Open vault</button></div>
+        <div id="vaults" class="cards"></div>
+      </section>
+
+      <section aria-labelledby="logH" class="wide">
+        <h2 id="logH">Liquidation log</h2>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>#</th><th>Vault</th><th>Started</th><th>Lot (COL)</th><th>Debt</th><th>Status</th><th>Sale price</th><th>Raised</th><th>Bad debt</th><th>Keeper profit</th></tr></thead>
+            <tbody id="log"></tbody>
+          </table>
+        </div>
+        <p id="logEmpty" class="muted">No liquidations yet. Try the crash scenario.</p>
+      </section>
+    </div>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
